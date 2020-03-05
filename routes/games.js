@@ -23,6 +23,12 @@ router.get('/listgames',  function(req, res){
     Game.find().then(function(games){
         console.log("Fetch Route ");
         console.log(games);
+        games.sort(function(a,b){
+            if(a.title.toLowerCase() < b.title.toLowerCase()) { return -1; }
+            if(a.title.toLowerCase() > b.title.toLowerCase()) { return 1; }
+            return 0;
+        });
+        
         res.render('gameentry/list',{
             games:games
         });
