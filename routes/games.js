@@ -13,6 +13,11 @@ router.get('/games', ensureAuthenticated , function(req, res){
     Game.find({user:req.user.id}).then(function(games){
         console.log("Fetch Route ");
         console.log(games);
+        games.sort(function(a,b){
+            if(a.title.toLowerCase() < b.title.toLowerCase()) { return -1; }
+            if(a.title.toLowerCase() > b.title.toLowerCase()) { return 1; }
+            return 0;
+        });
         res.render('gameentry/index',{
             games:games
         });
